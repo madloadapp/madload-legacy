@@ -3,7 +3,7 @@
   background-color: $mainColor;
   background-image: generateLinear();
   background-size: 400% 400%;
-  animation: linearGradient 15s linear infinite alternate
+  animation: linearGradient 15s linear infinite alternate;
 }
 
 header {

@@ -235,9 +235,8 @@ document.addEventListener('DOMContentLoaded', () => {
       item.textContent += ` (${format.format})`;
     }
 
-    // add no-[audio/video] for formats
+    // add no-audio for formats
     if (format.acodec === 'none') item.classList.add('no-audio');
-    // if (format.vcodec === 'none') item.classList.add('no-video');
 
     cb && cb(item);
 
@@ -333,11 +332,11 @@ document.addEventListener('DOMContentLoaded', () => {
         !vidDuration.hasAttribute('hidden') && vidDuration.setAttribute('hidden', '');
       }
 
-      infoTitle.setAttribute('href', data.url);
       infoTitle.textContent = data.title;
+      infoTitle.setAttribute('href', data.url);
 
-      infoAuthor.setAttribute('href', data.author.url);
       infoAuthor.textContent = data.author.name;
+      if (data.author.url) infoAuthor.setAttribute('href', data.author.url);
 
       // remove old formats list
       while (formatsList.firstElementChild) formatsList.removeChild(formatsList.firstElementChild);

@@ -8,3 +8,8 @@ tests/
 pnpm-debug.log
 pnpm-lock.yaml
 package-lock.json
+
+# files
+public/css/*.css
+public/css/*.css.map
+public/js/*.min.js

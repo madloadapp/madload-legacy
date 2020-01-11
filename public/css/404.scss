@@ -1,9 +1,7 @@
 @charset 'UTF-8';
 
-
-@import
-  'sass/helpers/variables',
-  'sass/helpers/functions',
-  'sass/helpers/mixins';
+@import 'sass/helpers/variables';
+@import 'sass/helpers/functions';
+@import 'sass/helpers/mixins';
 
 @import 'sass/pages/404';

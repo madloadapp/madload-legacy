@@ -1,10 +1,10 @@
 'use strict';
 
-const express     = require('express');
-const path        = require('path');
-const morgan      = require('morgan');
-const cors        = require('cors');
-const helmet      = require('helmet');
+const express = require('express');
+const path = require('path');
+const morgan = require('morgan');
+const cors = require('cors');
+const helmet = require('helmet');
 const compression = require('compression');
 
 const app = express();
@@ -32,13 +32,15 @@ app.use(morgan('tiny'));
 
 app.use(helmet());
 app.use(helmet.noCache());
-app.use(helmet.contentSecurityPolicy({
-  directives: {
-    defaultSrc: ['\'self\''],
-    imgSrc: ['*'],
-    mediaSrc: ['*']
-  }
-}));
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      imgSrc: ['*'],
+      mediaSrc: ['*']
+    }
+  })
+);
 
 app.use(cors());
 
@@ -51,6 +53,6 @@ app.use('/api', require('./routes/api'));
 app.get('/', (req, res) => res.render('index'));
 
 // not found (404)
-app.use((req, res) => res.status(404).render('404', {  url: req.path }));
+app.use((req, res) => res.status(404).render('404', { url: req.path }));
 
 app.listen(PORT, () => console.log(`running on: ${PORT}`));

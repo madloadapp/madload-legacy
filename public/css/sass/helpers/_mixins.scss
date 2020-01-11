@@ -1,17 +1,23 @@
 // prefixer mixin => add prefixes to properties
 @mixin prefixer($property, $value, $prefixes: ()) {
-  @each $prefix in $prefixes { #{'-' + $prefix + '-' + $property}: $value; }
+  @each $prefix in $prefixes {
+    #{'-' + $prefix + '-' + $property}: $value;
+  }
   #{$property}: $value;
 }
 
-
 // keyframes animation mixin => add prefixes to keyframes animation
 @mixin keyFrame($animationName) {
-  @-webkit-keyframes #{$animationName} { @content; }
-  @-moz-keyframes #{$animationName}    { @content; }
-  @keyframes #{$animationName}         { @content; }
+  @-webkit-keyframes #{$animationName} {
+    @content;
+  }
+  @-moz-keyframes #{$animationName} {
+    @content;
+  }
+  @keyframes #{$animationName} {
+    @content;
+  }
 }
-
 
 // opacity mixin => add opacity effect & support the old browsers like IE shit
 @mixin opacity($value) {
@@ -19,7 +25,6 @@
   filter: alpha(opacity = ($value * 100));
   opacity: $value;
 }
-
 
 // transition mixin => Add transition to elements
 @mixin transition($args...) {
@@ -29,10 +34,17 @@
   transition: $args;
 }
 
-
 // multiTransition mixin => more advanced transition
-@mixin multiTransition($property: all, $duration: .7s, $timingFunction: ease-in-out, $delay: 0s) {
-  @if type-of($property) != list and type-of($duration) != list and type-of($timingFunction) != list and type-of($delay) != list {
+@mixin multiTransition($property: all, $duration: 0.7s, $timingFunction: ease-in-out, $delay: 0s) {
+  @if type-of($property) !=
+    list and
+    type-of($duration) !=
+    list and
+    type-of($timingFunction) !=
+    list and
+    type-of($delay) !=
+    list
+  {
     -webkit-transition: $property $duration $timingFunction $delay;
     -moz-transition: $property $duration $timingFunction $delay;
     -o-transition: $property $duration $timingFunction $delay;
@@ -57,9 +69,8 @@
   }
 }
 
-
 // overlay mixin => add overlay to an element
-@mixin overlay($color, $alpha: .4, $zIndex: 2) {
+@mixin overlay($color, $alpha: 0.4, $zIndex: 2) {
   position: absolute;
   top: 0;
   left: 0;
@@ -69,7 +80,6 @@
   z-index: $zIndex;
 }
 
-
 // center element horizontally and vertically
 @mixin centerer {
   position: absolute;
@@ -78,7 +88,6 @@
   @include prefixer(transform, translate(-50%, -50%), webkit moz o);
 }
 
-
 // circle mixin
 @mixin circle($dimension) {
   width: $dimension;
@@ -86,15 +95,21 @@
   border-radius: 50%;
 }
 
-
 // placeholder mixin
 @mixin placeholder {
-  ::-webkit-input-placeholder { @content; }
-  ::-moz-placeholder          { @content; }
-  :-ms-input-placeholder      { @content; }
-  :-moz-placeholder           { @content; }
+  ::-webkit-input-placeholder {
+    @content;
+  }
+  ::-moz-placeholder {
+    @content;
+  }
+  :-ms-input-placeholder {
+    @content;
+  }
+  :-moz-placeholder {
+    @content;
+  }
 }
-
 
 // background cover mixin
 @mixin cover {
@@ -106,11 +121,11 @@
 // linear-gradient mixin
 @mixin linearGradient($firstColor, $secondColor, $tilt: 90deg) {
   background-color: nth(str-split($firstColor, ' '), 1);
-  background-image: -webkit-linear-gradient($tilt, $firstColor, $secondColor)
-                    -moz-linear-gradient($tilt, $firstColor, $secondColor)
-                    -o-linear-gradient($tilt, $firstColor, $secondColor)
-                    linear-gradient($tilt, $firstColor, $secondColor);
-                    // linear-gradient(90deg, #2ecc71 30%, #3498db 100%);
+  background-image: -webkit-linear-gradient($tilt, $firstColor, $secondColor) -moz-linear-gradient(
+      $tilt,
+      $firstColor,
+      $secondColor
+    ) -o-linear-gradient($tilt, $firstColor, $secondColor) linear-gradient($tilt, $firstColor, $secondColor);
 }
 
 @mixin underlineEffect($color: $mainColor, $linear: 'default') {
@@ -128,7 +143,7 @@
       }
     }
     margin: auto;
-    @include transition(width .5s ease);
+    @include transition(width 0.5s ease);
   }
   &:hover {
     &::after {
