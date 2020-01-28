@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 const helmet = require('helmet');
 const compression = require('compression');
-const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -33,12 +32,18 @@ app.use(
   })
 );
 
-app.use(cors());
-
 app.use(compression());
 
 // static files
-app.use('/assets', express.static(path.join(__dirname, 'public')));
+app.use(
+  '/assets',
+  express.static(path.join(__dirname, 'public'), {
+    index: false,
+    immutable: true,
+    cacheControl: true,
+    maxAge: '30d'
+  })
+);
 
 // API route
 app.use('/api', require('./routes/api'));
