@@ -36,7 +36,6 @@ app.use(compression());
 
 // static files
 app.use(
-  '/assets',
   express.static(path.join(__dirname, 'public'), {
     index: false,
     immutable: true,
