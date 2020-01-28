@@ -1,10 +1,6 @@
-'use strict';
-
-const express = require('express');
+const router = require('express').Router();
 const ytdl = require('youtube-dl');
 const logger = require('../lib/logger');
-
-const router = express.Router();
 
 const supported = [
   'youtube.com',
@@ -15,13 +11,7 @@ const supported = [
   'instagram.com'
 ];
 
-router.get('/test', (req, res) => {
-  ytdl.getInfo(req.query.url, (err, info) => {
-    res.json(info);
-  });
-});
-
-router.all('/', (req, res) => {
+router.post('/', (req, res) => {
   const url = req.body.url || req.query.url;
 
   if (!url) return res.json({ ok: false, err: 'url not found.' });
@@ -176,5 +166,13 @@ router.all('/', (req, res) => {
     res.json(data);
   });
 });
+
+if (process.env.NODE_ENV === 'development') {
+  router.all('/test', (req, res) => {
+    ytdl.getInfo(req.query.url, (err, info) => {
+      res.json(info);
+    });
+  });
+}
 
 module.exports = router;
