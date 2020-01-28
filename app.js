@@ -1,5 +1,7 @@
 const express = require('express');
 const path = require('path');
+const helmet = require('helmet');
+const cors = require('cors');
 const compression = require('compression');
 
 const app = express();
@@ -20,6 +22,8 @@ app.set('view options', {
 });
 app.set('views', path.join(__dirname, 'views'));
 
+app.use(helmet());
+app.use(cors());
 app.use(compression());
 
 // static files
