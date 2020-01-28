@@ -2,9 +2,10 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   const effects = {
-    fadeIn: (element, step = .1, showIt = true) => {
+    fadeIn: (element, step = 0.1, showIt = true) => {
       if (step >= 1) step = +('.' + step);
-      if (showIt) element.hasAttribute('hidden') && element.removeAttribute('hidden');
+      if (showIt)
+        element.hasAttribute('hidden') && element.removeAttribute('hidden');
 
       let opacityVal;
       element.style.opacity = 0;
@@ -13,17 +14,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if ((opacityVal += step) <= 1) {
           element.style.opacity = opacityVal;
-          (window.requestAnimationFrame && requestAnimationFrame(fade)) || setTimeout(fade, 16);
+          (window.requestAnimationFrame && requestAnimationFrame(fade)) ||
+            setTimeout(fade, 16);
         } else {
           if (+element.style.opacity !== 1) element.style.opacity = 1;
         }
       }
-      (window.requestAnimationFrame && requestAnimationFrame(fade)) || setTimeout(fade, 16);
+      (window.requestAnimationFrame && requestAnimationFrame(fade)) ||
+        setTimeout(fade, 16);
 
       return true;
     },
 
-    fadeOut: (element, step = .1, hideIt = true) => {
+    fadeOut: (element, step = 0.1, hideIt = true) => {
       if (step >= 1) step = +('.' + step);
       element.style.opacity = 1;
 
@@ -33,13 +36,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if ((opacityVal -= step) >= 0) {
           element.style.opacity = opacityVal;
-          (window.requestAnimationFrame && requestAnimationFrame(fade)) || setTimeout(fade, 16);
+          (window.requestAnimationFrame && requestAnimationFrame(fade)) ||
+            setTimeout(fade, 16);
         } else {
           if (+element.style.opacity !== 0) element.style.opacity = 0;
-          if (hideIt) !element.hasAttribute('hidden') && element.setAttribute('hidden', '');
+          if (hideIt)
+            !element.hasAttribute('hidden') &&
+              element.setAttribute('hidden', '');
         }
       }
-      (window.requestAnimationFrame && requestAnimationFrame(fade)) || setTimeout(fade, 16);
+      (window.requestAnimationFrame && requestAnimationFrame(fade)) ||
+        setTimeout(fade, 16);
 
       return true;
     }
@@ -57,8 +64,16 @@ document.addEventListener('DOMContentLoaded', () => {
       'instagram.com'
     ];
 
-    let urlMatch = url.match(/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}[.]{0,1}/i);
-    if (urlMatch && urlMatch.length > 0 && supportedSites.includes(urlMatch[0].replace(/(http[s]?:\/\/)|(www\.)/ig, ''))) {
+    let urlMatch = url.match(
+      /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}[.]{0,1}/i
+    );
+    if (
+      urlMatch &&
+      urlMatch.length > 0 &&
+      supportedSites.includes(
+        urlMatch[0].replace(/(http[s]?:\/\/)|(www\.)/gi, '')
+      )
+    ) {
       return true;
     }
 
@@ -67,20 +82,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let isProcessing = false;
 
-  let urlInput  = document.getElementById('url'),
-      submitBtn = urlInput.nextElementSibling,
-      clipPaste = document.getElementById('clipPaste'),
-      clrInput  = document.getElementById('clrInput'),
-      outputBox = document.getElementById('output');
+  let urlInput = document.getElementById('url'),
+    submitBtn = urlInput.nextElementSibling,
+    clipPaste = document.getElementById('clipPaste'),
+    clrInput = document.getElementById('clrInput'),
+    outputBox = document.getElementById('output');
 
   function prepareForm(url, getData = false) {
     submitBtn.hasAttribute('disabled') && submitBtn.removeAttribute('disabled');
     if (urlInput.value !== url) urlInput.value = url;
-    if (location.hash  !== url) location.hash  = url;
+    if (location.hash !== url) location.hash = url;
     if (getData) submitBtn.click();
   }
 
-  !urlInput.getAttribute('data-placeholder') && urlInput.setAttribute('data-placeholder', urlInput.getAttribute('placeholder'));
+  !urlInput.getAttribute('data-placeholder') &&
+    urlInput.setAttribute(
+      'data-placeholder',
+      urlInput.getAttribute('placeholder')
+    );
 
   // hide the placeholder content
   urlInput.addEventListener('focus', () => {
@@ -89,7 +108,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // show the placeholder content again
-  urlInput.addEventListener('blur', () => urlInput.setAttribute('placeholder', urlInput.getAttribute('data-placeholder')));
+  urlInput.addEventListener('blur', () =>
+    urlInput.setAttribute(
+      'placeholder',
+      urlInput.getAttribute('data-placeholder')
+    )
+  );
 
   // copy input value
   urlInput.addEventListener('dblclick', () => {
@@ -108,7 +132,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     navigator.permissions.query({ name: 'clipboard-write' }).then(result => {
-      if (result.state === 'granted' || result.state === 'prompt') navigator.clipboard.writeText(urlInput.value);
+      if (result.state === 'granted' || result.state === 'prompt')
+        navigator.clipboard.writeText(urlInput.value);
     });
   });
 
@@ -117,16 +142,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // handle clear the input using backspace/delete
     if (!url) {
-      !submitBtn.hasAttribute('disabled') && submitBtn.setAttribute('disabled', '');
+      !submitBtn.hasAttribute('disabled') &&
+        submitBtn.setAttribute('disabled', '');
       !clrInput.hasAttribute('hidden') && effects.fadeOut(clrInput);
-      !clipPaste.hasAttribute('not-supported') && clipPaste.hasAttribute('hidden') && effects.fadeIn(clipPaste);
+      !clipPaste.hasAttribute('not-supported') &&
+        clipPaste.hasAttribute('hidden') &&
+        effects.fadeIn(clipPaste);
       // location.hash = '';
       return;
     }
 
     // hide the clipPaste & show the clrInput
     !clipPaste.hasAttribute('hidden') && effects.fadeOut(clipPaste);
-    clrInput.hasAttribute('hidden')   && effects.fadeIn(clrInput);
+    clrInput.hasAttribute('hidden') && effects.fadeIn(clrInput);
 
     // check if the url is valid and get results
     if (isValidUrl(url)) prepareForm(url, true);
@@ -146,19 +174,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-
   // check if browser supports clipboard readText
   if (navigator.clipboard && navigator.clipboard.readText) {
-    !urlInput.value.trim() && clipPaste.hasAttribute('hidden') && clipPaste.removeAttribute('hidden');
-    clipPaste.hasAttribute('not-supported') && clipPaste.removeAttribute('not-supported');
+    !urlInput.value.trim() &&
+      clipPaste.hasAttribute('hidden') &&
+      clipPaste.removeAttribute('hidden');
+    clipPaste.hasAttribute('not-supported') &&
+      clipPaste.removeAttribute('not-supported');
   } else {
     !clipPaste.hasAttribute('hidden') && clipPaste.setAttribute('hidden', '');
-    !clipPaste.hasAttribute('not-supported') && clipPaste.setAttribute('not-supported', '');
+    !clipPaste.hasAttribute('not-supported') &&
+      clipPaste.setAttribute('not-supported', '');
   }
 
-
   clipPaste.addEventListener('click', () => {
-    if (clipPaste.hasAttribute('not-supported')) return !clipPaste.hasAttribute('hidden') && clipPaste.setAttribute('hidden', '');
+    if (clipPaste.hasAttribute('not-supported'))
+      return (
+        !clipPaste.hasAttribute('hidden') &&
+        clipPaste.setAttribute('hidden', '')
+      );
 
     navigator.permissions.query({ name: 'clipboard-read' }).then(result => {
       if (result.state === 'granted' || result.state === 'prompt') {
@@ -172,47 +206,58 @@ document.addEventListener('DOMContentLoaded', () => {
           if (isValidUrl(url)) prepareForm(url, true);
 
           effects.fadeOut(clipPaste);
-          setTimeout(() => clrInput.hasAttribute('hidden') && effects.fadeIn(clrInput) && clipPaste.hasAttribute('style') && clipPaste.removeAttribute('style'), 100);
+          setTimeout(
+            () =>
+              clrInput.hasAttribute('hidden') &&
+              effects.fadeIn(clrInput) &&
+              clipPaste.hasAttribute('style') &&
+              clipPaste.removeAttribute('style'),
+            100
+          );
         });
       }
     });
   });
 
-
   clrInput.addEventListener('click', () => {
     urlInput.value = '';
     // location.hash = '';
 
-    !submitBtn.hasAttribute('disabled') && submitBtn.setAttribute('disabled', '');
+    !submitBtn.hasAttribute('disabled') &&
+      submitBtn.setAttribute('disabled', '');
 
     clrInput.style.transform = 'rotate(-90deg)';
     setTimeout(() => effects.fadeOut(clrInput), 500);
-    setTimeout(() => !clipPaste.hasAttribute('not-supported') && clipPaste.hasAttribute('hidden') && effects.fadeIn(clipPaste) && clrInput.hasAttribute('style') && clrInput.removeAttribute('style'), 600);
+    setTimeout(
+      () =>
+        !clipPaste.hasAttribute('not-supported') &&
+        clipPaste.hasAttribute('hidden') &&
+        effects.fadeIn(clipPaste) &&
+        clrInput.hasAttribute('style') &&
+        clrInput.removeAttribute('style'),
+      600
+    );
   });
 
-  window.addEventListener('hashchange', () => {
+  window.addEventListener('hashchange', () => {});
 
-  });
-
-
-  let videoCard     = outputBox.querySelector('.video-card'),
-      thumbnailWrap = videoCard.querySelector('.thumbnail'),
-      infoWrap      = videoCard.querySelector('.info'),
-      downloadWrap  = videoCard.querySelector('.download');
+  let videoCard = outputBox.querySelector('.video-card'),
+    thumbnailWrap = videoCard.querySelector('.thumbnail'),
+    infoWrap = videoCard.querySelector('.info'),
+    downloadWrap = videoCard.querySelector('.download');
 
   let thumbnailImg = thumbnailWrap.querySelector('img'),
-      vidDuration  = thumbnailWrap.querySelector('.duration'),
-      infoTitle    = infoWrap.querySelector('.title a'),
-      infoAuthor   = infoWrap.querySelector('.author a');
+    vidDuration = thumbnailWrap.querySelector('.duration'),
+    infoTitle = infoWrap.querySelector('.title a'),
+    infoAuthor = infoWrap.querySelector('.author a');
 
-  let formatsList  = downloadWrap.querySelector('.formats-list'),
-      dropIcon     = downloadWrap.querySelector('.drop-icon'),
-      getBtn       = downloadWrap.querySelector('.get');
+  let formatsList = downloadWrap.querySelector('.formats-list'),
+    dropIcon = downloadWrap.querySelector('.drop-icon'),
+    getBtn = downloadWrap.querySelector('.get');
 
   let loadingWrap = outputBox.querySelector('.loading'),
-      errBoxWrap  = outputBox.querySelector('.errbox'),
-      errBoxMsg   = errBoxWrap.querySelector('.err-msg');
-
+    errBoxWrap = outputBox.querySelector('.errbox'),
+    errBoxMsg = errBoxWrap.querySelector('.err-msg');
 
   function setFormatItem(format, filename, cb) {
     let item = document.createElement('li');
@@ -220,7 +265,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // set the formats info
     item.setAttribute('data-url', format.url);
     item.setAttribute('data-ext', format.ext);
-    item.setAttribute('data-filename', filename.replace(/\|\\\/\*\+<>:\?"'/g, '_')); //  `${filename.replace(/\|\\\/\*\+<>:\?"'/g, '_')}.${format.ext}`
+    item.setAttribute(
+      'data-filename',
+      filename.replace(/\|\\\/\*\+<>:\?"'/g, '_')
+    ); //  `${filename.replace(/\|\\\/\*\+<>:\?"'/g, '_')}.${format.ext}`
+
     if (format.format) item.setAttribute('title', format.format);
 
     // set the item name
@@ -246,9 +295,12 @@ document.addEventListener('DOMContentLoaded', () => {
   function showErrorMsg(errmsg, disableProcessing = true) {
     if (!errmsg) return false;
 
-    if (!loadingWrap.hasAttribute('hidden') || !videoCard.hasAttribute('hidden')) {
+    if (
+      !loadingWrap.hasAttribute('hidden') ||
+      !videoCard.hasAttribute('hidden')
+    ) {
       !loadingWrap.hasAttribute('hidden') && effects.fadeOut(loadingWrap);
-      !videoCard.hasAttribute('hidden')   && effects.fadeOut(errBoxWrap);
+      !videoCard.hasAttribute('hidden') && effects.fadeOut(errBoxWrap);
       setTimeout(() => effects.fadeIn(errBoxWrap), 300);
     } else {
       errBoxWrap.hasAttribute('hidden') && effects.fadeIn(errBoxWrap);
@@ -259,16 +311,22 @@ document.addEventListener('DOMContentLoaded', () => {
     errBoxMsg.textContent = errmsg;
   }
 
-
   formatsList.addEventListener('click', () => {
-    if (!formatsList.childElementCount || formatsList.childElementCount === 1) return;
-    if (formatsList.hasAttribute('data-list-open')) return formatsList.removeAttribute('data-list-open');
+    if (!formatsList.childElementCount || formatsList.childElementCount === 1)
+      return;
+    if (formatsList.hasAttribute('data-list-open'))
+      return formatsList.removeAttribute('data-list-open');
     formatsList.setAttribute('data-list-open', '');
   });
 
   document.addEventListener('click', e => {
     // hide the formats list menu when click wherever outside
-    if (formatsList.hasAttribute('data-list-open') && formatsList !== e.target.parentElement && dropIcon !== e.target.parentElement) formatsList.removeAttribute('data-list-open');
+    if (
+      formatsList.hasAttribute('data-list-open') &&
+      formatsList !== e.target.parentElement &&
+      dropIcon !== e.target.parentElement
+    )
+      formatsList.removeAttribute('data-list-open');
   });
 
   getBtn.addEventListener('click', () => {
@@ -290,16 +348,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isProcessing) return;
 
     if (!url || !isValidUrl(url)) {
-      !submitBtn.hasAttribute('disabled') && submitBtn.setAttribute('disabled', '');
+      !submitBtn.hasAttribute('disabled') &&
+        submitBtn.setAttribute('disabled', '');
       return showErrorMsg('Please insert a valid url.');
     }
 
     isProcessing = true;
 
     submitBtn.hasAttribute('disabled') && submitBtn.removeAttribute('disabled');
-    outputBox.hasAttribute('hidden')   && outputBox.removeAttribute('hidden');
+    outputBox.hasAttribute('hidden') && outputBox.removeAttribute('hidden');
 
-    if (!videoCard.hasAttribute('hidden') || !errBoxWrap.hasAttribute('hidden')) {
+    if (
+      !videoCard.hasAttribute('hidden') ||
+      !errBoxWrap.hasAttribute('hidden')
+    ) {
       effects.fadeOut(videoCard);
       effects.fadeOut(errBoxWrap);
       setTimeout(() => effects.fadeIn(loadingWrap), 300);
@@ -315,73 +377,94 @@ document.addEventListener('DOMContentLoaded', () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ url })
-    }).then(res => {
-      if (res.ok && (res.status >= 200 && res.status < 300) && res.statusText === 'OK') {
-        return res.json();
-      } else {
-        throw 'server request error, check your connection and try again.';
-      }
-    }).then(data => {
-      if (!data || !data.ok) return showErrorMsg(data && data.err || 'error occurred when getting info.');
+    })
+      .then(res => {
+        if (
+          res.ok &&
+          res.status >= 200 &&
+          res.status < 300 &&
+          res.statusText === 'OK'
+        ) {
+          return res.json();
+        } else {
+          throw 'server request error, check your connection and try again.';
+        }
+      })
+      .then(data => {
+        if (!data || !data.ok)
+          return showErrorMsg(
+            (data && data.err) || 'error occurred when getting info.'
+          );
 
-      if (data.duration) {
-        vidDuration.textContent = data.duration;
-        vidDuration.hasAttribute('hidden') && vidDuration.removeAttribute('hidden');
-      } else {
-        vidDuration.textContent = '';
-        !vidDuration.hasAttribute('hidden') && vidDuration.setAttribute('hidden', '');
-      }
+        if (data.duration) {
+          vidDuration.textContent = data.duration;
+          vidDuration.hasAttribute('hidden') &&
+            vidDuration.removeAttribute('hidden');
+        } else {
+          vidDuration.textContent = '';
+          !vidDuration.hasAttribute('hidden') &&
+            vidDuration.setAttribute('hidden', '');
+        }
 
-      infoTitle.textContent = data.title;
-      infoTitle.setAttribute('href', data.url);
+        infoTitle.textContent = data.title;
+        infoTitle.setAttribute('href', data.url);
 
-      infoAuthor.textContent = data.author.name;
-      if (data.author.url) infoAuthor.setAttribute('href', data.author.url);
+        infoAuthor.textContent = data.author.name;
+        if (data.author.url) infoAuthor.setAttribute('href', data.author.url);
 
-      // remove old formats list
-      while (formatsList.firstElementChild) formatsList.removeChild(formatsList.firstElementChild);
+        // remove old formats list
+        while (formatsList.firstElementChild)
+          formatsList.removeChild(formatsList.firstElementChild);
 
-      if (data.formats) {
-        if (data.formats.length > 1) {
-          // show the drop[down/up] icon
-          dropIcon.hasAttribute('hidden') && dropIcon.removeAttribute('hidden');
+        if (data.formats) {
+          if (data.formats.length > 1) {
+            // show the drop[down/up] icon
+            dropIcon.hasAttribute('hidden') &&
+              dropIcon.removeAttribute('hidden');
 
-          // create formats elements
-          data.formats.forEach(format => {
-            setFormatItem(format, `${data.title}.${format.ext}`, item => {
-              // selector
-              item.addEventListener('click', () => {
-                if (item === formatsList.firstElementChild) return;
-                formatsList.firstElementChild.insertAdjacentElement('beforebegin', item);
+            // create formats elements
+            data.formats.forEach(format => {
+              setFormatItem(format, `${data.title}.${format.ext}`, item => {
+                // selector
+                item.addEventListener('click', () => {
+                  if (item === formatsList.firstElementChild) return;
+                  formatsList.firstElementChild.insertAdjacentElement(
+                    'beforebegin',
+                    item
+                  );
+                });
               });
             });
-          });
+          } else {
+            // hide the drop[down/up] icon
+            !dropIcon.hasAttribute('hidden') &&
+              dropIcon.setAttribute('hidden', '');
+
+            // set the format item
+            setFormatItem(
+              data.formats[0],
+              `${data.title}.${data.formats[0].ext}`
+            );
+          }
         } else {
-          // hide the drop[down/up] icon
-          !dropIcon.hasAttribute('hidden') && dropIcon.setAttribute('hidden', '');
-
-          // set the format item
-          setFormatItem(data.formats[0], `${data.title}.${data.formats[0].ext}`);
+          showErrorMsg('connot get media data.');
         }
-      } else {
-        showErrorMsg('connot get media data.');
-      }
 
-      // set the thumbnail image
-      thumbnailImg.setAttribute('src', data.thumbnail);
+        // set the thumbnail image
+        thumbnailImg.setAttribute('src', data.thumbnail);
 
+        if (!loadingWrap.hasAttribute('hidden')) {
+          effects.fadeOut(loadingWrap);
+          setTimeout(() => effects.fadeIn(videoCard), 300);
+        } else {
+          effects.fadeIn(videoCard);
+        }
 
-      if (!loadingWrap.hasAttribute('hidden')) {
-        effects.fadeOut(loadingWrap);
-        setTimeout(() => effects.fadeIn(videoCard), 300);
-      } else {
-        effects.fadeIn(videoCard);
-      }
-
-      isProcessing = false;
-    }).catch(err => {
-      showErrorMsg('request error occurred.');
-      console.error(err);
-    });
+        isProcessing = false;
+      })
+      .catch(err => {
+        showErrorMsg('request error occurred.');
+        console.error(err);
+      });
   });
 });

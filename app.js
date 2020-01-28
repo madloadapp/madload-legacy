@@ -47,5 +47,9 @@ app.get('/', (req, res) => res.render('index'));
 app.use((req, res) => res.status(404).render('404', { url: req.path }));
 
 app.listen(PORT, () =>
-  console.log(`running on: ${process.env.NODE_ENV === 'development' ? `http://localhost:${PORT}` : PORT}`)
+  console.log(
+    `running on: ${
+      process.env.NODE_ENV === 'development' ? `http://localhost:${PORT}` : PORT
+    }`
+  )
 );

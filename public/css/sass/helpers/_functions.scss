@@ -23,5 +23,12 @@
 
 // generate linear gradient
 @function generateLinear($position: right) {
-  @return linear-gradient(to $position, $mainColor, #00c5a5, #00bacc, #00abdf, $primaryColor);
+  @return linear-gradient(
+    to $position,
+    $mainColor,
+    #00c5a5,
+    #00bacc,
+    #00abdf,
+    $primaryColor
+  );
 }

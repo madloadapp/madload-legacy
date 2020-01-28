@@ -16,7 +16,10 @@ router.post('/', (req, res) => {
 
   if (!url) return res.json({ ok: false, err: 'url not found.' });
 
-  let urlMatch = url.match(/^(https?:\/\/){0,1}(www\.){0,1}[\d-.a-z]+\.[a-z]{2,5}\.{0,1}/i);
+  let urlMatch = url.match(
+    /^(https?:\/\/){0,1}(www\.){0,1}[\d-.a-z]+\.[a-z]{2,5}\.{0,1}/i
+  );
+
   if (urlMatch && urlMatch.length > 0) {
     let domainName = urlMatch[0].replace(/(https?:\/\/){0,1}(www\.){0,1}/i, '');
     if (!supported.includes(domainName)) {
@@ -71,7 +74,9 @@ router.post('/', (req, res) => {
           .map(t => (t < 10 ? `0${~~t}` : ~~t))
           .join(':');
       } else {
-        data.duration = `00:${info.duration < 10 ? `0${~~info.duration}` : ~~info.duration}`;
+        data.duration = `00:${
+          info.duration < 10 ? `0${~~info.duration}` : ~~info.duration
+        }`;
       }
     }
 
@@ -108,7 +113,8 @@ router.post('/', (req, res) => {
           } else if (data.platform === 'facebook') {
             // remove DASH videos
             if (item.ext === 'mp4') {
-              if (item.formatNote && item.formatNote.startsWith('DASH')) return false;
+              if (item.formatNote && item.formatNote.startsWith('DASH'))
+                return false;
               if (info.format_id.includes('no_ratelimit')) {
                 if (!info.format_id.includes('no_ratelimit')) return false;
               }
@@ -120,7 +126,9 @@ router.post('/', (req, res) => {
         .sort((a, b) => {
           if (data.platform === 'youtube') {
             // sort by formatNote (1080p, 720p, etc..)
-            return parseInt(a.formatNote, 10) > parseInt(b.formatNote, 10) ? -1 : 1;
+            return parseInt(a.formatNote, 10) > parseInt(b.formatNote, 10)
+              ? -1
+              : 1;
           }
 
           if (data.platform === 'twitter') {
@@ -138,11 +146,15 @@ router.post('/', (req, res) => {
         data.thumbnail = data.thumbnail.replace('hqdefault', 'mqdefault');
 
         // move best formats up
-        let formatMedium = data.formats.findIndex(item => item.formatId === '18');
+        let formatMedium = data.formats.findIndex(
+          item => item.formatId === '18'
+        );
         let formatHigh = data.formats.findIndex(item => item.formatId === '22');
 
-        if (formatMedium !== -1) data.formats.unshift(data.formats.splice(formatMedium, 1)[0]);
-        if (formatHigh !== -1) data.formats.unshift(data.formats.splice(formatHigh, 1)[0]);
+        if (formatMedium !== -1)
+          data.formats.unshift(data.formats.splice(formatMedium, 1)[0]);
+        if (formatHigh !== -1)
+          data.formats.unshift(data.formats.splice(formatHigh, 1)[0]);
 
         // move the audio up if its a music video
         if (info.categories.includes('Music')) {
@@ -160,7 +172,8 @@ router.post('/', (req, res) => {
         ext: info.ext
       };
 
-      if (data.platform === 'soundcloud') data.thumbnail = data.thumbnail.replace('original', 'crop');
+      if (data.platform === 'soundcloud')
+        data.thumbnail = data.thumbnail.replace('original', 'crop');
     }
 
     res.json(data);

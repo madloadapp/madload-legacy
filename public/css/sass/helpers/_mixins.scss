@@ -35,7 +35,12 @@
 }
 
 // multiTransition mixin => more advanced transition
-@mixin multiTransition($property: all, $duration: 0.7s, $timingFunction: ease-in-out, $delay: 0s) {
+@mixin multiTransition(
+  $property: all,
+  $duration: 0.7s,
+  $timingFunction: ease-in-out,
+  $delay: 0s
+) {
   @if type-of($property) !=
     list and
     type-of($duration) !=
@@ -125,7 +130,8 @@
       $tilt,
       $firstColor,
       $secondColor
-    ) -o-linear-gradient($tilt, $firstColor, $secondColor) linear-gradient($tilt, $firstColor, $secondColor);
+    ) -o-linear-gradient($tilt, $firstColor, $secondColor)
+    linear-gradient($tilt, $firstColor, $secondColor);
 }
 
 @mixin underlineEffect($color: $mainColor, $linear: 'default') {
