@@ -6,7 +6,7 @@ module.exports = {
     es6: true
   },
   extends: ['airbnb-base'],
-  plugins: [],
+  plugins: ['eslint-plugin-import'],
   parserOptions: {
     ecmaVersion: 6,
     sourceType: 'script'

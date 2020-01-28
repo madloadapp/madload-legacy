@@ -2,7 +2,6 @@ const gulp = require('gulp');
 const eslint = require('gulp-eslint');
 const terser = require('gulp-terser');
 const sass = require('gulp-sass');
-const stylelint = require('gulp-stylelint');
 const autoprefixer = require('gulp-autoprefixer');
 const rename = require('gulp-rename');
 const nodemon = require('gulp-nodemon');
@@ -17,7 +16,6 @@ const isProd = true;
 const css = () => {
   gulp
     .src('public/css/**/*.scss')
-    .pipe(stylelint())
     .pipe(sass({ outputStyle: isProd ? 'compressed' : 'expanded' }).on('error', sass.logError))
     .pipe(autoprefixer({ cascade: false, grid: true }))
     .pipe(gulp.dest('public/css'))
