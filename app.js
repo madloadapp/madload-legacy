@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const helmet = require('helmet');
 const compression = require('compression');
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -21,16 +22,18 @@ app.set('view options', {
 });
 app.set('views', path.join(__dirname, 'views'));
 
-// app.use(helmet());
-// app.use(
-//   helmet.contentSecurityPolicy({
-//     directives: {
-//       defaultSrc: ["'self'"],
-//       imgSrc: ['*'],
-//       mediaSrc: ['*']
-//     }
-//   })
-// );
+app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      imgSrc: ['*'],
+      mediaSrc: ['*']
+    }
+  })
+);
+
+app.use(cors());
 
 app.use(compression());
 
