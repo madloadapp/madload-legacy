@@ -12,9 +12,9 @@
   },
   "scripts": {
     "start": "node app.js",
+    "build": "gulp build",
     "dev": "gulp watch",
     "lint": "eslint",
-    "task": "gulp build",
     "update:ytdl": "node update-youtube-dl.js"
   },
   "keywords": [

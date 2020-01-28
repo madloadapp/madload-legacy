@@ -35,14 +35,7 @@ app.use(
 app.use(compression());
 
 // static files
-app.use(
-  express.static(path.join(__dirname, 'public'), {
-    index: false,
-    immutable: true,
-    cacheControl: true,
-    maxAge: '30d'
-  })
-);
+app.use('/assets', express.static(path.join(__dirname, 'public')));
 
 // API route
 app.use('/api', require('./routes/api'));
