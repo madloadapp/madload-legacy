@@ -22,6 +22,15 @@ app.set('view options', {
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      imgSrc: ['*'],
+      mediaSrc: ['*']
+    }
+  })
+);
 
 app.use(compression());
 
