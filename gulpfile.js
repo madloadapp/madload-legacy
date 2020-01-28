@@ -14,7 +14,7 @@ sass.compiler = require('node-sass');
 // is production env
 const isProd = true;
 
-exports.css = done => {
+const css = () => {
   gulp
     .src('public/css/**/*.scss')
     .pipe(stylelint())
@@ -22,12 +22,9 @@ exports.css = done => {
     .pipe(autoprefixer({ cascade: false, grid: true }))
     .pipe(gulp.dest('public/css'))
     .pipe(livereload());
-
-  done();
 };
-exports.css.displayName = 'css';
 
-exports.js = done => {
+const js = () => {
   gulp
     .src(['public/js/**/*.js', '!public/js/**/*.min.js'])
     .pipe(eslint())
@@ -37,29 +34,34 @@ exports.js = done => {
     .pipe(rename({ extname: '.min.js' }))
     .pipe(gulp.dest('public/js'))
     .pipe(livereload());
-
-  done();
 };
-exports.js.displayName = 'js';
 
-exports.localhost = done => {
+const localhost = () => {
   nodemon({
     script: 'app.js',
     ext: 'js',
-    ignore: ['node_modules/', 'public/', 'views/', 'tests/', 'update-youtube-dl.js', 'gulpfile.js'],
-    done
+    ignore: ['node_modules/', 'public/', 'views/', 'tests/', 'update-youtube-dl.js', 'gulpfile.js']
   });
 };
-exports.localhost.displayName = 'localhost';
 
-exports.watch = done => {
+const watch = () => {
   livereload.listen();
 
   gulp.watch('public/css/**/*.scss', exports.css);
   gulp.watch(['public/js/**/*.js', '!public/js/**/*.min.js'], exports.js);
 
-  exports.localhost(done);
+  exports.localhost();
 };
 
-exports.build = gulp.parallel(exports.css, exports.js);
+exports.css = css;
+exports.js = js;
+exports.localhost = localhost;
+exports.watch = watch;
+
+exports.css.displayName = 'css';
+exports.js.displayName = 'js';
+exports.localhost.displayName = 'localhost';
+exports.watch.displayName = 'watch';
+
+exports.build = gulp.parallel(css, js);
 exports.default = exports.build;
