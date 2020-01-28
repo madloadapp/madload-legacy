@@ -10,8 +10,7 @@ const del = require('del');
 
 sass.compiler = require('node-sass');
 
-// is production env
-const isProd = false;
+const isProd = process.env.NODE_ENV === 'production';
 
 const css = done => {
   gulp
