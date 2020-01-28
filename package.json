@@ -14,7 +14,7 @@
     "start": "node app.js",
     "dev": "gulp watch",
     "lint": "eslint",
-    "build": "gulp build",
+    "task": "gulp build",
     "update:ytdl": "node update-youtube-dl.js"
   },
   "keywords": [
