@@ -1,18 +1,56 @@
 @charset 'UTF-8';
 
-@import 'sass/helpers/variables';
-@import 'sass/helpers/functions';
-@import 'sass/helpers/mixins';
-
 @import 'sass/tools/normalize';
-@import 'sass/tools/include-media';
 
-/*! MadLoad style */
-@import 'sass/components/fonts';
-@import 'sass/components/classes';
-@import 'sass/components/keyframes';
+/* MadLoad style */
 
-@import 'sass/pages/global';
+@import 'sass/config', 'sass/fonts', 'sass/keyframes', 'sass/reset';
 
-@import 'sass/layout/header';
-// 'sass/layout/footer';
+.top-linear {
+  height: 5px;
+  background-size: 400% 400%;
+  animation: linearGradient 15s linear infinite alternate;
+  @include addGradient;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 5%;
+  padding-right: 5%;
+  user-select: none;
+  h1 {
+    font-size: 3.2rem;
+    @media (max-width: $mediaXS) {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    span {
+      color: $mainColor;
+      font-size: 1.1em;
+    }
+  }
+  nav {
+    @media (max-width: $mediaXS) {
+      display: none;
+    }
+    a {
+      font-size: 1.92rem;
+      &::after {
+        content: '';
+        display: block;
+        width: 0;
+        height: 2px;
+        margin: auto;
+        transition: width 0.5s ease;
+        @include addGradient;
+      }
+      &:hover {
+        &::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

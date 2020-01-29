@@ -1,0 +1,34 @@
+// Main Colors
+$mainColor: #2ecc71;
+$primaryColor: #3498db;
+$bgColor: #1c1e1f;
+$bgPrimaryColor: #252f31;
+$redColor: #c8001d;
+$whiteColor: #f8f9fa;
+$darkMarkerColor: #1c1e1fd9;
+
+// Media Query
+$mediaXS: 576px;
+$mediaSmall: 768px;
+$mediaMedium: 992px;
+$mediaLarge: 1200px;
+
+// default font
+$dfltFontSize: 10px;
+$dfltFontFamily: Lato, sans-serif, Arial;
+
+$mainMargin: 15px;
+$mainPadding: 15px;
+$borderRadius: 10px;
+
+@mixin addGradient {
+  background-color: $mainColor; // fallback color
+  background-image: linear-gradient(
+    to right,
+    $mainColor,
+    #00c5a5,
+    #00bacc,
+    #00abdf,
+    $primaryColor
+  );
+}
