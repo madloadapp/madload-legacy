@@ -8,6 +8,6 @@ pnpm-debug.log
 
 public/css/*.css
 public/css/*.css.map
-public/js/*.min.js
 public/js/bundle.js
+public/js/*.min.js
 public/js/*.js.map
