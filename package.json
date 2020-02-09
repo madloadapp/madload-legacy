@@ -7,8 +7,8 @@
   "repository": "osamaify/madload",
   "main": "app.js",
   "engines": {
-    "node": "13.7.x",
-    "pnpm": "4.8.x"
+    "node": "13.x.x",
+    "pnpm": "4.x.x"
   },
   "scripts": {
     "start": "node app.js",
@@ -30,16 +30,22 @@
     "youtube-dl": "^2.3.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "browserify": "^16.5.0",
     "del": "^5.1.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
+    "gulp-babel": "^8.0.0",
     "gulp-livereload": "^4.0.2",
     "gulp-nodemon": "^2.4.2",
     "gulp-noop": "^1.0.0",
-    "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-streamify": "^1.0.2",
     "gulp-terser": "^1.2.0",
     "node-sass": "^4.13.1",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "vinyl-source-stream": "^2.0.0"
   }
 }
