@@ -26,8 +26,20 @@ app.use(helmet());
 app.use(cors());
 app.use(compression());
 
+// prevent scss files & sass folder
+app.use('/assets', (req, res, next) => {
+  if (req.path.endsWith('.scss') || req.path.endsWith('/sass'))
+    res.status(404).render('404', { url: `/assets${req.path}` });
+  else next();
+});
+
 // static files
 app.use('/assets', express.static(path.join(__dirname, 'public')));
+
+// favicon
+app.use('/favicon.ico', (req, res) =>
+  res.sendFile(path.join(__dirname, 'public', 'img', 'favicon.ico'))
+);
 
 // API route
 app.use('/api', require('./routes/api'));
