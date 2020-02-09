@@ -1,10 +1,10 @@
 dependencies:
   compression: 1.7.4
   cors: 2.8.5
-  ejs: 2.7.4
+  ejs: 3.0.1
   express: 4.17.1
   helmet: 3.21.2
-  youtube-dl: 2.3.0
+  youtube-dl: 3.0.2
 devDependencies:
   '@babel/core': 7.8.4
   '@babel/preset-env': 7.8.4_@babel+core@7.8.4
@@ -2297,13 +2297,13 @@ packages:
     dev: false
     resolution:
       integrity: sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
-  /ejs/2.7.4:
+  /ejs/3.0.1:
     dev: false
     engines:
       node: '>=0.10.0'
     requiresBuild: true
     resolution:
-      integrity: sha512-7vmuyh5+kuUyJKePhQfRQBhXV5Ce+RnaeeQArKu1EAMpL3WbgMt5WG6uQZpEVvYSSsxMXRKOewtDk9RaTKXRlA==
+      integrity: sha512-cuIMtJwxvzumSAkqaaoGY/L6Fc/t6YvoP9/VIaK0V/CyqKLEQ8sqODmYfy/cjXEdZ9+OOL8TecbJu+1RsofGDw==
   /electron-to-chromium/1.3.345:
     dev: true
     resolution:
@@ -3026,9 +3026,6 @@ packages:
       node: '>=8'
     peerDependencies:
       gulp: '>=4'
-    peerDependenciesMeta:
-      gulp:
-        optional: true
     resolution:
       integrity: sha512-QJGEmHw+bEt7FSqvmbAUTxbCuNLJYx4sz3ox9WouYqT/7j5FH5CQ8ZnpL1M7H5npX1bUJa7lUVY1w20jXxhOxg==
   /gulp-babel/8.0.0_@babel+core@7.8.4:
@@ -6596,7 +6593,7 @@ packages:
     dev: true
     resolution:
       integrity: sha1-a6MY6xaWFyf10oT46gA+jWFU0Mg=
-  /youtube-dl/2.3.0:
+  /youtube-dl/3.0.2:
     dependencies:
       debug: 4.1.1
       execa: 3.2.0
@@ -6607,10 +6604,10 @@ packages:
       universalify: 0.1.2
     dev: false
     engines:
-      node: '>= 8'
+      node: '>= 10'
     requiresBuild: true
     resolution:
-      integrity: sha512-92oQDJYaSqLbXZI9GWPalq8fuJdlJGsB6mAQ+uEl127kbCpF5HXea5F046kPxUHQ1OnQ3jHqx0wqZ6ELijVMEw==
+      integrity: sha512-LFFfpsYbRLpqKsnb4gzbnyN7fm190tJw3gJVSvfoEfnb/xYIPNT6i9G3jdzPDp/U5cwB3OSq63nUa7rUwxXAGA==
   /zero-fill/2.2.3:
     dev: false
     resolution:
@@ -6622,7 +6619,7 @@ specifiers:
   compression: ^1.7.4
   cors: ^2.8.5
   del: ^5.1.0
-  ejs: ^2.7.4
+  ejs: ^3.0.1
   express: ^4.17.1
   gulp: ^4.0.2
   gulp-autoprefixer: ^7.0.1
@@ -6638,4 +6635,4 @@ specifiers:
   node-sass: ^4.13.1
   prettier: ^1.19.1
   vinyl-source-stream: ^2.0.0
-  youtube-dl: ^2.3.0
+  youtube-dl: ^3.0.2

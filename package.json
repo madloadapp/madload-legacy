@@ -20,10 +20,10 @@
   "dependencies": {
     "compression": "^1.7.4",
     "cors": "^2.8.5",
-    "ejs": "^2.7.4",
+    "ejs": "^3.0.1",
     "express": "^4.17.1",
     "helmet": "^3.21.2",
-    "youtube-dl": "^2.3.0"
+    "youtube-dl": "^3.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
