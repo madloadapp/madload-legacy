@@ -1,8 +1,12 @@
 const gulp = require('gulp');
+const source = require('vinyl-source-stream');
+const streamify = require('gulp-streamify');
+const browserify = require('browserify');
+const babel = require('gulp-babel');
 const terser = require('gulp-terser');
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
-const rename = require('gulp-rename');
+const sourcemaps = require('gulp-sourcemaps');
 const nodemon = require('gulp-nodemon');
 const livereload = require('gulp-livereload');
 const noop = require('gulp-noop');
@@ -15,6 +19,7 @@ const isProd = process.env.NODE_ENV === 'production';
 const css = done => {
   gulp
     .src('public/css/**/*.scss')
+    .pipe(sourcemaps.init())
     .pipe(
       sass({ outputStyle: isProd ? 'compressed' : 'expanded' }).on(
         'error',
@@ -22,6 +27,7 @@ const css = done => {
       )
     )
     .pipe(autoprefixer({ cascade: false, grid: true }))
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('public/css'))
     .pipe(livereload());
 
@@ -29,10 +35,14 @@ const css = done => {
 };
 
 const js = done => {
-  gulp
-    .src(['public/js/**/*.js', '!public/js/**/*.min.js'])
-    .pipe(isProd ? terser({ output: { quote_style: 1 } }) : noop())
-    .pipe(rename({ extname: '.min.js' }))
+  const bundle = browserify('./public/js/modules/main.js').bundle();
+
+  bundle
+    .pipe(source('bundle.js'))
+    .pipe(!isProd ? streamify(sourcemaps.init()) : noop())
+    .pipe(streamify(babel({ presets: ['@babel/env'] })))
+    .pipe(isProd ? streamify(terser({ output: { quote_style: 1 } })) : noop())
+    .pipe(!isProd ? streamify(sourcemaps.write('.')) : noop())
     .pipe(gulp.dest('public/js'))
     .pipe(livereload());
 
@@ -57,18 +67,22 @@ const localhost = done => {
 };
 
 const watch = done => {
-  livereload.listen();
+  livereload.listen({}, () => console.log('livereload is running...'));
 
-  gulp.watch('public/css/**/*.scss', exports.css);
-  gulp.watch(['public/js/**/*.js', '!public/js/**/*.min.js'], exports.js);
+  gulp.watch('public/css/**/*.scss', css);
+  gulp.watch(
+    ['public/js/**/*.js', '!public/js/bundle.js', '!public/js/**/*.min.js'],
+    js
+  );
 
-  localhost(done);
+  localhost();
 
-  done && done();
+  process.on('exit', done);
 };
 
 const clean = async done => {
   await del([
+    'public/js/bundle.js',
     'public/js/*.min.js',
     'public/js/*.js.map',
     'public/css/*.css',
