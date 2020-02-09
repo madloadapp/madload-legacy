@@ -4,12 +4,10 @@ tests/
 *.env
 *.db
 
-# npm & pnpm
 pnpm-debug.log
-pnpm-lock.yaml
-package-lock.json
 
-# files
 public/css/*.css
 public/css/*.css.map
 public/js/*.min.js
+public/js/bundle.js
+public/js/*.js.map
