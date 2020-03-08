@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="just download what you want." />
+    <title>MadLoad</title>
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/home.css" />
+    <?- include('inc/favicons.ejs'); ?>
+  </head>
+  <body>
+    <?- include('inc/header.ejs'); ?>
+    <main>
+      <div class="input-box">
+        <input
+          id="url"
+          type="text"
+          autocomplete="off"
+          spellcheck="false"
+          tabindex="1"
+          placeholder="url..."
+          data-placeholder="url..."
+        />
+        <button id="goBtn" tabindex="2" disabled>Go!</button>
+        <i id="clipPaste" hidden>
+          <?- include('icons/clipboard.svg'); ?>
+        </i>
+        <i id="clrInput" hidden>
+          <?- include('icons/close.svg'); ?>
+        </i>
+      </div>
+    </main>
+
+    <section id="output" hidden>
+      <div class="video-card" hidden>
+        <div class="thumbnail">
+          <img src="" alt="video's thumbnail" />
+          <i class="play-video" title="Play Video">
+            <?- include('icons/play-outline.svg'); ?>
+          </i>
+          <span class="duration"></span>
+        </div>
+        <div class="info">
+          <h5 class="title">
+            <a href="" target="_blank" tabindex="-1"></a>
+          </h5>
+          <h6 class="author">
+            <a href="" target="_blank" tabindex="-1"></a>
+          </h6>
+          <div class="download">
+            <ul class="formats-list"></ul>
+            <i class="drop-icon">
+              <?- include('icons/cheveron-down.svg'); ?>
+            </i>
+            <button class="get">Get</button>
+          </div>
+        </div>
+      </div>
+      <div class="loading" hidden></div>
+      <div class="err-box" hidden>
+        <i class="err-icon">
+          <?- include('icons/exclamation-outline.svg'); ?>
+        </i>
+        <p class="err-msg">Error!</p>
+      </div>
+    </section>
+
+    <section id="player" hidden>
+      <video></video>
+      <audio></audio>
+    </section>
+
+    <noscript>
+      <p>did you disable JavaScript nowdays ... really?!</p>
+    </noscript>
+    <script defer src="assets/js/bundle.js"></script>
+  </body>
+</html>

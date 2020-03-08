@@ -1,0 +1,18 @@
+/*!
+  MadLoad style | by: Osama (@osamaify) | github.com/osamaify/madload
+  include:
+    - normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css
+    - svg-url | codepen.io/jakob-e/pen/doMoML
+*/
+
+// normalize
+@use 'vendor/normalize';
+
+// partials
+@use 'partials/fonts';
+@use 'partials/keyframes';
+@use 'partials/reset';
+@use 'partials/classes';
+
+// layout
+@use 'layout/header';

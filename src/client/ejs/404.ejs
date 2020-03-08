@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page Not Found - MadLoad</title>
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="stylesheet" href="/assets/css/404.css" />
+    <?- include('inc/favicons.ejs'); ?>
+  </head>
+  <body>
+    <?- include('inc/header'); ?>
+    <main>
+      <div class="err-box">404</div>
+      <div class="err-text">
+        <span id="req-path"></span>
+        not found!
+      </div>
+      <a class="go-home" href="/">Go to Home</a>
+    </main>
+    <script defer>
+      document.addEventListener(
+        'DOMContentLoaded',
+        () => {
+          document.getElementById('req-path').textContent = location.pathname;
+        },
+        false
+      );
+    </script>
+  </body>
+</html>

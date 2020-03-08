@@ -1,0 +1,36 @@
+@use '../base/colors';
+@use '../base/media-queries' as mq;
+@use '../base/mixins';
+
+.top-linear {
+  height: 5px;
+  background-size: 400% 400%;
+  animation: linearGradient 15s linear infinite alternate;
+  @include mixins.addGradient;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 5%;
+  padding-right: 5%;
+  user-select: none;
+  h1 {
+    font-size: 3.2rem;
+    @media (max-width: mq.$xs) {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    span {
+      color: colors.$main;
+      font-size: 1.1em;
+    }
+  }
+  nav {
+    font-size: 1.92rem;
+    @media (max-width: mq.$xs) {
+      display: none;
+    }
+  }
+}

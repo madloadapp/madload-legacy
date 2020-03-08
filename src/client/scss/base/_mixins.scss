@@ -1,0 +1,13 @@
+@use 'colors';
+
+@mixin addGradient {
+  background-color: colors.$main; // fallback color
+  background-image: linear-gradient(
+    to right,
+    colors.$main,
+    #00c5a5,
+    #00bacc,
+    #00abdf,
+    colors.$primary
+  );
+}

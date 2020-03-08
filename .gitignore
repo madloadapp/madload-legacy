@@ -1,13 +1,6 @@
 node_modules/
-.vscode/
+dist/
 tests/
 *.env
 *.db
-
 pnpm-debug.log
-
-public/css/*.css
-public/css/*.css.map
-public/js/bundle.js
-public/js/*.min.js
-public/js/*.js.map

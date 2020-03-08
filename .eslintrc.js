@@ -1,35 +1,20 @@
 module.exports = {
   env: {
-    node: true,
-    commonjs: true,
     browser: true,
-    es6: true
+    commonjs: true,
+    es6: true,
+    node: true
   },
-  extends: ['airbnb-base'],
-  plugins: ['eslint-plugin-import'],
+  globals: {
+    Atomics: 'readonly',
+    SharedArrayBuffer: 'readonly'
+  },
   parserOptions: {
-    ecmaVersion: 6,
-    sourceType: 'script'
+    ecmaVersion: 2018
   },
+  extends: 'eslint:recommended',
+  plugins: ['prettier'],
   rules: {
-    'prettier/prettier': 'error',
-    strict: ['error', 'global'],
-    // quotes: ['error', 'single'],
-    semi: ['error', 'always'],
-    eqeqeq: 'error',
-    'no-var': 'error',
-    camelcase: 'error',
-    'spaced-comment': 'warn',
-    'block-spacing': 'warn',
-    'no-unused-vars': 'warn',
-    'consistent-return': 'off',
-    'prefer-destructuring': 'off',
-    'prefer-const': 'off',
-    'no-bitwise': 'off',
-    'no-console': 'off',
-    'func-names': 'off',
-    'no-process-exit': 'off',
-    'object-shorthand': 'off',
-    'class-methods-use-this': 'off'
+    'prettier/prettier': 'warn'
   }
 };

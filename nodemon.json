@@ -1,0 +1,20 @@
+{
+  "script": "./dist/server/app.js",
+  "ext": "js",
+  "verbose": true,
+  "ignore": [
+    "node_modules/",
+    ".git/",
+    "src/",
+    "package.json",
+    "pnpm-lock.yaml",
+    ".eslintrc.js",
+    "tsconfig.json",
+    "prettier.config.js",
+    "Procfile",
+    "license",
+    "readme.md",
+    ".gitignore",
+    ".editorconfig"
+  ]
+}

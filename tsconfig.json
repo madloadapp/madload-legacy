@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "rootDir": "./src/server",
+    "outDir": "./dist/server",
+    "sourceMap": true,
+    "removeComments": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/server/**/*"],
+  "exclude": ["node_modules", "src/client", "dist", "tests"]
+}
