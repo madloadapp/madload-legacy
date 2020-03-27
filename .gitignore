@@ -1,6 +1,6 @@
 node_modules/
-dist/
-tests/
-*.env
-*.db
+lib/
+public/assets/css/
+public/assets/js/
+tmp/
 pnpm-debug.log
