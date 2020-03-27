@@ -1,9 +1,11 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es2017",
     "module": "commonjs",
-    "rootDir": "./src/server",
-    "outDir": "./dist/server",
+    "rootDir": "server",
+    "outDir": "lib",
+    "lib": ["ESNext"],
+    "typeRoots": ["node_modules/@types"],
     "sourceMap": true,
     "removeComments": true,
     "strict": true,
@@ -11,6 +13,6 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/server/**/*"],
-  "exclude": ["node_modules", "src/client", "dist", "tests"]
+  "include": ["server/**/*"],
+  "exclude": ["node_modules", "tmp", "lib", "client"]
 }
